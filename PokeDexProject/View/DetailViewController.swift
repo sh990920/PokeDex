@@ -62,8 +62,8 @@ class DetailViewController: UIViewController {
     }
     
     func configurePokemon(pokemon: Pokemon) {
-        detailView.pokemonId.text = "No.\(pokemon.id)"
-        detailView.pokemonName.text = PokemonTranslator.getKoreanName(for: pokemon.name)
+        let nameText = PokemonTranslator.getKoreanName(for: pokemon.name)
+        detailView.pokemonIdAndName.text = "No.\(pokemon.id)  \(nameText)"
         var typeText = "타입 : "
         for (idx, type) in pokemon.types.enumerated() {
             guard let typeName = convertToKoreanTypeName(from: type.type) else { return }

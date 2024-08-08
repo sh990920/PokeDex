@@ -22,14 +22,14 @@ class DetailViewModel {
         }
         NetworkManager.shared.fetch(url: url).observe(on: MainScheduler.instance).subscribe(onSuccess: { [weak self] (pokemon: Pokemon) in
             self?.pokemonSubject.onNext(pokemon)
-            self?.fetchPokemonImage(url: pokemon.sprites.frontDefault)
+            self?.fetchPokemonImage(id: pokemon.id)
         }, onFailure: { error in
             self.pokemonSubject.onError(error)
         }).disposed(by: disposeBag)
     }
     
-    func fetchPokemonImage(url: String) {
-        guard let url = URL(string: url) else {
+    func fetchPokemonImage(id: Int) {
+        guard let url = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(id).png") else {
             pokemonImageSubject.onError(NetworkError.invalidUrl)
             return
         }
